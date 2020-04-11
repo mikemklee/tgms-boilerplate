@@ -61,7 +61,7 @@ export default class LoginView extends React.Component<
                     variables: this.state,
                   });
                   console.log('Login mutation response!', response);
-                  this.props.history.push('/me');
+                  this.props.history.push('/account');
                 }}
               >
                 Login

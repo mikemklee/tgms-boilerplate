@@ -3,8 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import LoginView from './modules/user/LoginView';
 import RegisterView from './modules/user/RegisterView';
-import MeView from './modules/user/MeView';
-import UserSubscriptionView from './modules/account/UserSubscriptionView';
+import AccountView from './modules/account/AccountView';
 
 export class Routes extends React.Component {
   render() {
@@ -13,8 +12,7 @@ export class Routes extends React.Component {
         <Switch>
           <Route path='/login' component={LoginView} />
           <Route path='/register' component={RegisterView} />
-          <Route path='/me' component={MeView} />
-          <Route path='/subscription' component={UserSubscriptionView} />
+          <Route path='/account' component={AccountView} />
         </Switch>
       </BrowserRouter>
     );

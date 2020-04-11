@@ -1,22 +1,25 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { Redirect } from 'react-router-dom';
 
 import { MeQuery } from '../../schemaTypes';
+import UserSubscriptionView from './UserSubscriptionView';
 
 const meQuery = gql`
   query MeQuery {
     me {
       id
       email
+      type
     }
   }
 `;
 
-export default class MeView extends React.Component {
+export default class AccountView extends React.Component {
   render() {
     return (
-      <Query<MeQuery> query={meQuery}>
+      <Query<MeQuery> fetchPolicy='network-only' query={meQuery}>
         {({ data, loading }) => {
           if (loading) {
             return null;
@@ -27,10 +30,14 @@ export default class MeView extends React.Component {
           }
 
           if (!data.me) {
-            return <div>received no user</div>;
+            return <Redirect to='/login' />;
           }
 
-          return <div>{data.me.email}</div>;
+          if (data.me.type === 'free-trial') {
+            return <UserSubscriptionView />;
+          }
+
+          return <div>Thank you for subscribing!</div>;
         }}
       </Query>
     );
