@@ -13,7 +13,7 @@ const meQuery = gql`
   }
 `;
 
-export class MeView extends React.Component {
+export default class MeView extends React.Component {
   render() {
     return (
       <Query<MeQuery> query={meQuery}>

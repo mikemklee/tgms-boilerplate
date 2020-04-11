@@ -14,7 +14,9 @@ const loginMutation = gql`
   }
 `;
 
-export class LoginView extends React.Component<RouteComponentProps<{}>> {
+export default class LoginView extends React.Component<
+  RouteComponentProps<{}>
+> {
   state = {
     email: '',
     password: '',

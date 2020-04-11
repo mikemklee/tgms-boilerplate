@@ -11,7 +11,9 @@ const registerMutation = gql`
   }
 `;
 
-export class RegisterView extends React.Component<RouteComponentProps<{}>> {
+export default class RegisterView extends React.Component<
+  RouteComponentProps<{}>
+> {
   state = {
     email: '',
     password: '',
