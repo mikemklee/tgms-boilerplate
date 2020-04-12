@@ -50,19 +50,30 @@ export const resolvers: IResolvers = {
         throw new Error();
       }
 
-      // create new customer
-      const customer = await stripe.customers.create({
-        email: user.email,
-        source: source,
-      });
+      let stripeId = user.stripeId;
+
+      if (!stripeId) {
+        // create new customer
+        const customer = await stripe.customers.create({
+          email: user.email,
+          source: source,
+        });
+
+        stripeId = customer.id;
+      } else {
+        // update existing customer
+        await stripe.customers.update(stripeId, {
+          source,
+        });
+      }
 
       // subscribe customer to plan
       stripe.subscriptions.create({
-        customer: customer.id,
+        customer: stripeId,
         items: [{ plan: process.env.STRIPE_PLAN }],
       });
 
-      user.stripeId = customer.id;
+      user.stripeId = stripeId;
       user.type = 'paid';
       user.ccLast4 = ccLast4;
       await user.save();
