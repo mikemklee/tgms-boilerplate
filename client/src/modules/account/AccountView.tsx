@@ -1,25 +1,15 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 import { Redirect } from 'react-router-dom';
 
 import { MeQuery } from '../../schemaTypes';
 import UserSubscriptionView from './UserSubscriptionView';
-
-const meQuery = gql`
-  query MeQuery {
-    me {
-      id
-      email
-      type
-    }
-  }
-`;
+import { meQuery } from '../../graphql/queries/me';
 
 export default class AccountView extends React.Component {
   render() {
     return (
-      <Query<MeQuery> fetchPolicy='network-only' query={meQuery}>
+      <Query<MeQuery> query={meQuery}>
         {({ data, loading }) => {
           if (loading) {
             return null;
