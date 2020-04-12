@@ -1,17 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
+import styled from 'styled-components';
 
 import { MeQuery } from '../schemaTypes';
 import { meQuery } from '../graphql/queries/me';
 
+const HeaderContainer = styled.div`
+  height: 50px;
+  border: 1px dashed #bbb;
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(255, 254, 252);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const HeaderLink = styled(Link)`
+  align-items: center;
+  color: inherit;
+  user-select: none;
+  width: auto;
+  display: block;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(50, 50, 50, 0.08);
+  }
+
+  &:first-of-type {
+    margin-right: auto;
+  }
+`;
+
 export default class Header extends React.Component {
   render() {
     return (
-      <div>
-        <Link to='/'>
-          <h2>Stripe example</h2>
-        </Link>
+      <HeaderContainer>
+        <HeaderLink to='/'>Project name</HeaderLink>
         <Query<MeQuery> query={meQuery}>
           {({ data, loading }) => {
             if (loading || !data) {
@@ -20,26 +53,18 @@ export default class Header extends React.Component {
 
             if (!data.me) {
               return (
-                <div>
-                  <div>
-                    <Link to='/login'>login</Link>
-                  </div>
-                  <div>
-                    <Link to='/register'>register</Link>
-                  </div>
-                </div>
+                <>
+                  <HeaderLink to='/login'>login</HeaderLink>
+                  <HeaderLink to='/register'>register</HeaderLink>
+                </>
               );
             }
 
             // user logged in
-            return (
-              <div>
-                <Link to='/account'>account</Link>
-              </div>
-            );
+            return <HeaderLink to='/account'>account</HeaderLink>;
           }}
         </Query>
-      </div>
+      </HeaderContainer>
     );
   }
 }

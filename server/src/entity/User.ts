@@ -11,7 +11,7 @@ export class User extends BaseEntity {
   @Column('text', { nullable: true })
   stripeId: string | null;
 
-  @Column('text', { default: 'free-trial' })
+  @Column('text', { default: 'trial' })
   type: string;
 
   @Column('text', { nullable: true })

@@ -25,7 +25,7 @@ export default class AccountView extends React.Component {
             return <Redirect to='/login' />;
           }
 
-          if (data.me.type === 'free-trial') {
+          if (data.me.type === 'trial') {
             return <UserSubscriptionView />;
           }
 

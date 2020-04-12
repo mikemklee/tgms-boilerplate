@@ -6,6 +6,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LoginMutation, LoginMutationVariables } from '../../schemaTypes';
 import { meQuery } from '../../graphql/queries/me';
 import { userFragment } from '../../graphql/fragments/userFragment';
+import { Form } from '../../shared/Form';
+import { Section } from '../../shared/Section';
 
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -20,21 +22,7 @@ const loginMutation = gql`
 export default class LoginView extends React.Component<
   RouteComponentProps<{}>
 > {
-  state = {
-    email: '',
-    password: '',
-  };
-
-  handleChange = (e: any) => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
   render() {
-    const { email, password } = this.state;
-
     return (
       <Mutation<LoginMutation, LoginMutationVariables>
         update={(cache, { data }) => {
@@ -50,42 +38,21 @@ export default class LoginView extends React.Component<
         mutation={loginMutation}
       >
         {(mutate, { client }) => (
-          <div>
-            <div>
-              <input
-                type='email'
-                name='email'
-                placeholder='email'
-                value={email}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div>
-              <input
-                type='password'
-                name='password'
-                placeholder='password'
-                value={password}
-                onChange={this.handleChange}
-              />
-            </div>
-            <div>
-              <button
-                onClick={async () => {
-                  // optianl reset cache
-                  if (client) await client.resetStore();
+          <Section>
+            <Form
+              buttonText='login'
+              onSubmit={async (data) => {
+                // optional reset cache
+                if (client) await client.resetStore();
 
-                  const response = await mutate({
-                    variables: this.state,
-                  });
-                  console.log('Login mutation response!', response);
-                  this.props.history.push('/account');
-                }}
-              >
-                Login
-              </button>
-            </div>
-          </div>
+                const response = await mutate({
+                  variables: data,
+                });
+                console.log('Login response', response);
+                this.props.history.push('/account');
+              }}
+            />
+          </Section>
         )}
       </Mutation>
     );

@@ -128,7 +128,7 @@ export const resolvers: IResolvers = {
         stripeCustomer.default_source as string
       );
 
-      user.type = 'free-trial';
+      user.type = 'trial';
       await user.save();
 
       return user;
