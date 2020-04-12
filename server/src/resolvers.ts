@@ -1,4 +1,5 @@
 import { IResolvers } from 'apollo-server-express';
+import Stripe from 'stripe';
 import * as bcrypt from 'bcryptjs';
 
 import { User } from './entity/User';
@@ -82,6 +83,41 @@ export const resolvers: IResolvers = {
       await stripe.customers.update(user.stripeId, { source });
 
       user.ccLast4 = ccLast4;
+      await user.save();
+
+      return user;
+    },
+    cancelSubscription: async (_, __, { req }) => {
+      if (!req.session || !req.session.userId) {
+        throw new Error('not authenticated');
+      }
+
+      const user = await User.findOne(req.session.userId);
+
+      if (!user || !user.stripeId || user.type !== 'paid') {
+        throw new Error();
+      }
+
+      const stripeCustomer = (await stripe.customers.retrieve(
+        user.stripeId
+      )) as Stripe.Customer;
+
+      if (!stripeCustomer.subscriptions) {
+        throw new Error();
+      }
+
+      const [subscription] = stripeCustomer.subscriptions.data;
+
+      // delete user's subscription
+      await stripe.subscriptions.del(subscription.id);
+
+      // delete user's card info
+      await stripe.customers.deleteSource(
+        user.stripeId,
+        stripeCustomer.default_source as string
+      );
+
+      user.type = 'free-trial';
       await user.save();
 
       return user;
