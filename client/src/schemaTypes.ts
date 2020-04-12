@@ -12,10 +12,37 @@ export interface MeQuery_me {
   id: string;
   email: string;
   type: string;
+  ccLast4: string | null;
 }
 
 export interface MeQuery {
   me: MeQuery_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: ChangeCreditCardMutation
+// ====================================================
+
+export interface ChangeCreditCardMutation_changeCreditCard {
+  __typename: "User";
+  id: string;
+  email: string;
+  type: string;
+  ccLast4: string | null;
+}
+
+export interface ChangeCreditCardMutation {
+  changeCreditCard: ChangeCreditCardMutation_changeCreditCard | null;
+}
+
+export interface ChangeCreditCardMutationVariables {
+  source: string;
+  ccLast4?: string | null;
 }
 
 /* tslint:disable */
@@ -31,6 +58,8 @@ export interface CreateSubscriptionMutation_createSubscription {
   __typename: "User";
   id: string;
   email: string;
+  type: string;
+  ccLast4: string | null;
 }
 
 export interface CreateSubscriptionMutation {
@@ -39,6 +68,7 @@ export interface CreateSubscriptionMutation {
 
 export interface CreateSubscriptionMutationVariables {
   source: string;
+  ccLast4?: string | null;
 }
 
 /* tslint:disable */
@@ -54,6 +84,8 @@ export interface LoginMutation_login {
   __typename: "User";
   id: string;
   email: string;
+  type: string;
+  ccLast4: string | null;
 }
 
 export interface LoginMutation {
@@ -81,6 +113,23 @@ export interface RegisterMutation {
 export interface RegisterMutationVariables {
   email: string;
   password: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: UserInfo
+// ====================================================
+
+export interface UserInfo {
+  __typename: "User";
+  id: string;
+  email: string;
+  type: string;
+  ccLast4: string | null;
 }
 
 /* tslint:disable */

@@ -2,8 +2,9 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
-import { MeQuery } from '../../schemaTypes';
+import ChangeCreditCard from './ChangeCreditCard';
 import UserSubscriptionView from './UserSubscriptionView';
+import { MeQuery } from '../../schemaTypes';
 import { meQuery } from '../../graphql/queries/me';
 
 export default class AccountView extends React.Component {
@@ -27,7 +28,12 @@ export default class AccountView extends React.Component {
             return <UserSubscriptionView />;
           }
 
-          return <div>Thank you for subscribing!</div>;
+          return (
+            <div>
+              <div>your current last 4 digits: ${data.me.ccLast4}</div>
+              <ChangeCreditCard />;
+            </div>
+          );
         }}
       </Query>
     );

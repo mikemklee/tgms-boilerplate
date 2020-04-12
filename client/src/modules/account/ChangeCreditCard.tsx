@@ -4,14 +4,14 @@ import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
 import {
-  CreateSubscriptionMutation,
-  CreateSubscriptionMutationVariables,
+  ChangeCreditCardMutation,
+  ChangeCreditCardMutationVariables,
 } from '../../schemaTypes';
 import { userFragment } from '../../graphql/fragments/userFragment';
 
-const createSubscriptionMutation = gql`
-  mutation CreateSubscriptionMutation($source: String!, $ccLast4: String) {
-    createSubscription(source: $source) {
+const changeCreditCardMutation = gql`
+  mutation ChangeCreditCardMutation($source: String!, $ccLast4: String) {
+    changeCreditCard(source: $source) {
       ...UserInfo
     }
   }
@@ -19,11 +19,11 @@ const createSubscriptionMutation = gql`
   ${userFragment}
 `;
 
-export default class UserSubscriptionView extends React.Component {
+export default class ChangeCreditCard extends React.Component {
   render() {
     return (
-      <Mutation<CreateSubscriptionMutation, CreateSubscriptionMutationVariables>
-        mutation={createSubscriptionMutation}
+      <Mutation<ChangeCreditCardMutation, ChangeCreditCardMutationVariables>
+        mutation={changeCreditCardMutation}
       >
         {(mutate) => (
           <StripeCheckout
@@ -34,9 +34,11 @@ export default class UserSubscriptionView extends React.Component {
 
               console.log('Subscription mutation response:', response);
             }}
+            panelLabel='Change Card'
             stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE!}
-            amount={1000}
-          />
+          >
+            <button>change credit card</button>
+          </StripeCheckout>
         )}
       </Mutation>
     );
