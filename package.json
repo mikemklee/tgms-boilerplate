@@ -38,5 +38,6 @@
   },
   "engines": {
     "node": "13.7.0"
-  }
+  },
+  "type": "module"
 }
