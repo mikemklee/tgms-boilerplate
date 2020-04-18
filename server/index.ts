@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import path from 'path';
 import { createConnection } from 'typeorm';
 import { ApolloServer } from 'apollo-server-express';
 import express = require('express');
@@ -35,9 +36,21 @@ const startServer = async () => {
     },
   });
 
-  app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-  );
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) =>
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    );
+  }
+
+  const PORT = process.env.PORT || 4000;
+
+  const testCallback = () => {
+    console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`);
+    console.log(`Graphql server ready at ${server.graphqlPath}`);
+  };
+
+  app.listen(PORT, testCallback);
 };
 
 startServer();
