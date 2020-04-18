@@ -5,8 +5,9 @@
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./server",
     "moduleResolution": "node",
-
+    "esModuleInterop": true,
     "removeComments": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -18,8 +19,8 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+  "exclude": ["client"]
 }
