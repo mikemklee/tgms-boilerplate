@@ -29,8 +29,6 @@
   "scripts": {
     "start": "node dist/index",
     "postinstall": "tsc",
-    "build:server": "tsc",
-    "build:client": "tsc -p ./client",
     "server": "nodemon --exec ts-node server/index.ts",
     "client": "npm start --prefix client",
     "dev": "concurrently --names \"CLIENT,SERVER\" -c \"bgMagenta,bgBlue\" \"npm run client\" \"npm run server\"",
