@@ -28,16 +28,11 @@ const startServer = async () => {
     })
   );
 
-  const ORIGIN =
-    process.env.NODE_ENV === 'production'
-      ? 'https://pacific-wave-85399.herokuapp.com'
-      : 'http://localhost:3000';
-
   server.applyMiddleware({
     app,
     cors: {
       credentials: true,
-      origin: ORIGIN,
+      origin: 'http://localhost:3000',
     },
   });
 

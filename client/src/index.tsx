@@ -7,8 +7,16 @@ import { createGlobalStyle } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 import { Routes } from './Routes';
 
+const API_URI =
+  process.env.NODE_ENV === 'production'
+    ? 'https://pacific-wave-85399.herokuapp.com'
+    : 'http://localhost:4000';
+
+console.log('CLIENT - NODE_ENV', process.env.NODE_ENV);
+console.log('API_URI', API_URI);
+
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: `${API_URI}/graphql`,
   credentials: 'include',
 });
 
