@@ -12,9 +12,6 @@ const API_URI =
     ? 'https://pacific-wave-85399.herokuapp.com'
     : 'http://localhost:4000';
 
-console.log('CLIENT - NODE_ENV', process.env.NODE_ENV);
-console.log('API_URI', API_URI);
-
 const client = new ApolloClient({
   uri: `${API_URI}/graphql`,
   credentials: 'include',
