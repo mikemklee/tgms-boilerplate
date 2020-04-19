@@ -1,6 +1,7 @@
 import { IResolvers } from 'apollo-server-express';
 import Stripe from 'stripe';
 import * as bcrypt from 'bcryptjs';
+import fetch from 'node-fetch';
 
 import { User } from './entity/User';
 import { stripe } from './stripe';
@@ -18,6 +19,13 @@ export const resolvers: IResolvers = {
       }
 
       return user;
+    },
+    dog: async () => {
+      const imgUrl =
+        ((await fetch('https://dog.ceo/api/breeds/image/random')
+          .then((res) => res.json())
+          .then((json) => json.message)) as String) || '';
+      return { imgUrl };
     },
   },
   Mutation: {

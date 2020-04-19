@@ -4,6 +4,24 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: DogQuery
+// ====================================================
+
+export interface DogQuery_dog {
+  __typename: "Dog";
+  imgUrl: string | null;
+}
+
+export interface DogQuery {
+  dog: DogQuery_dog | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: MeQuery
 // ====================================================
 
@@ -151,6 +169,20 @@ export interface UserInfo {
   email: string;
   type: string;
   ccLast4: string | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: DogInfo
+// ====================================================
+
+export interface DogInfo {
+  __typename: "Dog";
+  imgUrl: string | null;
 }
 
 /* tslint:disable */

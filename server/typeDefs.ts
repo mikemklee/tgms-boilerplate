@@ -8,8 +8,13 @@ export const typeDefs = gql`
     ccLast4: String
   }
 
+  type Dog {
+    imgUrl: String
+  }
+
   type Query {
     me: User
+    dog: Dog
   }
 
   type Mutation {
