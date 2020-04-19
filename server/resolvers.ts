@@ -7,11 +7,17 @@ import { stripe } from './stripe';
 
 export const resolvers: IResolvers = {
   Query: {
-    me: (_, __, { req }) => {
+    me: async (_, __, { req }) => {
       if (!req.session.userId) {
         return null;
       }
-      return User.findOne(req.session.userId);
+      const user = await User.findOne(req.session.userId);
+
+      if (!user) {
+        return null;
+      }
+
+      return user;
     },
   },
   Mutation: {
@@ -20,6 +26,7 @@ export const resolvers: IResolvers = {
       await User.create({
         email,
         password: hashedPassword,
+        type: 'trial',
       }).save();
 
       return true;
